@@ -31,7 +31,7 @@ export default function Interface() {
   return (
     <div className="background bg-slate-800 w-screen h-screen">
       <div className="container w-3/12 ml-auto mr-auto pt-28">
-        <div className="output bg-slate-300 mb-2 w-full h-32">
+        <div className="output bg-slate-300 mb-2 w-full h-36">
           <div className="prevOutput">
             {previousOperand} {operation}
           </div>
