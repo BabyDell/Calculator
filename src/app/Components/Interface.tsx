@@ -1,36 +1,61 @@
+"use client";
+import { useReducer, useState } from "react";
 import DigitButton from "./DigitButton";
-import OperandButton from "./OperandButton";
+import OperationButton from "./OperandButton";
+
+export const ACTIONS = {
+  ADD_DIGIT: "add-digit",
+  CHOOSE_OPERATION: "choose-operation",
+  CLEAR: "clear",
+  DELETE_DIGIT: "delete-digit",
+  EVALUATE: "evaluate",
+};
+
+function reducer(state, { type, payload }) {
+  switch (type) {
+    case ACTIONS.ADD_DIGIT:
+      return {
+        //returns new state object
+        ...state,
+        currentOperand: `${state.currentOperand || ""}${payload.digit}`,
+      };
+  }
+}
 
 export default function Interface() {
+  const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
+    reducer,
+    {}
+  );
 
-
-    
   return (
-    <div className="bg-slate-800 w-screen h-screen">
+    <div className="background bg-slate-800 w-screen h-screen">
       <div className="container w-3/12 ml-auto mr-auto pt-28">
         <div className="output bg-slate-300 mb-2 w-full h-32">
-          <div className="prevOutput"></div>
-          <div className="currOutput"></div>
+          <div className="prevOutput">
+            {previousOperand} {operation}
+          </div>
+          <div className="currOutput">{currentOperand}</div>
         </div>
         <div className="grid grid-cols-4 gap-3">
-          <DigitButton digit="AC" spanTwo={true} />
-          <DigitButton digit="DEL" />
-          <OperandButton operand="÷" />
-          <DigitButton digit="7" />
-          <DigitButton digit="8" />
-          <DigitButton digit="9" />
-          <OperandButton operand="X" />
-          <DigitButton digit="4" />
-          <DigitButton digit="5" />
-          <DigitButton digit="6" />
-          <OperandButton operand="-" />
-          <DigitButton digit="1" />
-          <DigitButton digit="2" />
-          <DigitButton digit="3" />
-          <OperandButton operand="+" />
-          <DigitButton digit="0" />
-          <DigitButton digit="." />
-          <OperandButton operand="=" spanTwo={true} />
+          <OperationButton operation="AC" dispatch={dispatch} spanTwo={true} />
+          <OperationButton operation="DEL" dispatch={dispatch} />
+          <OperationButton operation="÷" dispatch={dispatch} />
+          <DigitButton digit="7" dispatch={dispatch} />
+          <DigitButton digit="8" dispatch={dispatch} />
+          <DigitButton digit="9" dispatch={dispatch} />
+          <OperationButton operation="X" dispatch={dispatch} />
+          <DigitButton digit="4" dispatch={dispatch} />
+          <DigitButton digit="5" dispatch={dispatch} />
+          <DigitButton digit="6" dispatch={dispatch} />
+          <OperationButton operation="-" dispatch={dispatch} />
+          <DigitButton digit="1" dispatch={dispatch} />
+          <DigitButton digit="2" dispatch={dispatch} />
+          <DigitButton digit="3" dispatch={dispatch} />
+          <OperationButton operation="+" dispatch={dispatch} />
+          <DigitButton digit="0" dispatch={dispatch} />
+          <DigitButton digit="." dispatch={dispatch} />
+          <OperationButton operation="=" dispatch={dispatch} spanTwo={true} />
         </div>
       </div>
     </div>
