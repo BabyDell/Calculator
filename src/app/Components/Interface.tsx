@@ -11,6 +11,8 @@ export const ACTIONS = {
   EVALUATE: "evaluate",
 };
 
+const result = "";
+
 function reducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
@@ -25,7 +27,6 @@ function reducer(state, { type, payload }) {
       if (payload.digit === "." && state.currentOperand.includes("."))
         return state;
       return {
-        //returns new state object
         ...state,
         currentOperand: `${state.currentOperand || ""}${payload.digit}`,
       };
@@ -55,7 +56,7 @@ function reducer(state, { type, payload }) {
 
       return {
         ...state,
-        previousOperand: evalute(state),
+        previousOperand: evaluate(state),
         operation: payload.operation,
         currentOperand: null,
       };
@@ -70,13 +71,13 @@ function reducer(state, { type, payload }) {
         overwrite: true,
         previousOperand: null,
         operation: null,
-        currentOperand: evalute(state),
+        currentOperand: evaluate(state),
       }
   }
 
 }
 
-function evalute({ currentOperand, previousOperand, operation }) {
+function evaluate({ currentOperand, previousOperand, operation }) {
   const prev = parseFloat(previousOperand);
   const curr = parseFloat(currentOperand);
   if (isNaN(prev) || isNaN(curr)) return "";
@@ -108,11 +109,13 @@ export default function Interface() {
   return (
     <div className="background bg-slate-800 w-screen h-screen">
       <div className="container w-3/12 ml-auto mr-auto pt-28">
-        <div className="output bg-slate-300 mb-2 w-full h-36">
-          <div className="prevOutput">
+        <div className="output bg-slate-300 mb-2 w-full h-36 flex items-end gap-1 justify-end pr-5 pb-5">
+          {/* prevOutput */}
+          <div className="text-2xl"> 
             {previousOperand} {operation}
           </div>
-          <div className="currOutput">{currentOperand}</div>
+          {/* currOutput */}
+          <div className="text-2xl">{currentOperand}</div>
         </div>
         <div className="grid grid-cols-4 gap-3">
           <button
